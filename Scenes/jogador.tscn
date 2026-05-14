@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://sc7ju1cxkgjs"]
+
+[ext_resource type="Script" uid="uid://cfs1mo3qcwkn" path="res://scripts/jogador.gd" id="1_w43nc"]
+[ext_resource type="Texture2D" uid="uid://downdg6b7gxvt" path="res://icon.svg" id="2_4mg0t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w43nc"]
+size = Vector2(18, 118)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_w43nc"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[node name="Jogador" type="StaticBody2D" unique_id=136522698]
+z_index = 10
+script = ExtResource("1_w43nc")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1465129106]
+position = Vector2(4.7683716e-07, 0)
+scale = Vector2(0.17187499, 1)
+texture = ExtResource("2_4mg0t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=275830033]
+position = Vector2(-1, -1)
+shape = SubResource("RectangleShape2D_w43nc")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1773539559]
+replication_config = SubResource("SceneReplicationConfig_w43nc")

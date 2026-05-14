@@ -1,0 +1,165 @@
+[gd_scene format=3 uid="uid://cona6jea6xk5d"]
+
+[ext_resource type="Script" uid="uid://bmhyigkccce2d" path="res://scripts/room.gd" id="1_bpe3w"]
+[ext_resource type="PackedScene" uid="uid://buuu46cxb6rdo" path="res://Scenes/mapa.tscn" id="2_wgubu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wgubu"]
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_lolwk"]
+font_size = 48
+outline_size = 5
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_lolwk"]
+properties/0/path = NodePath(".:visible")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="room" type="Node" unique_id=750369810]
+script = ExtResource("1_bpe3w")
+
+[node name="EndGame_UI" type="Control" parent="." unique_id=315508424]
+visible = false
+z_index = 200
+layout_mode = 3
+anchors_preset = 0
+offset_left = 347.99997
+offset_top = 259.99994
+offset_right = 362.83398
+offset_bottom = 270.98007
+scale = Vector2(28.919994, 16.119999)
+
+[node name="Button" type="Button" parent="EndGame_UI" unique_id=941228378]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.1611252
+offset_top = -3.6290207
+offset_right = 58.838875
+offset_bottom = 27.37098
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.07286513, 0.11684276)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "return"
+
+[node name="vencedor" type="Label" parent="EndGame_UI" unique_id=576018579]
+layout_mode = 0
+offset_left = 452.0
+offset_top = 282.0
+offset_right = 676.0
+offset_bottom = 349.0
+text = "adwdawd"
+label_settings = SubResource("LabelSettings_wgubu")
+
+[node name="NETWORK_UI" type="Control" parent="." unique_id=1035934664]
+z_index = 10
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -682.0
+offset_top = -380.0
+offset_right = 458.0
+offset_bottom = 253.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NETWORK_UI" unique_id=1907471383]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -264.5
+offset_top = -163.0
+offset_right = 264.5
+offset_bottom = 163.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="NETWORK_UI/VBoxContainer" unique_id=791791772]
+layout_mode = 2
+text = "Pong Game"
+horizontal_alignment = 1
+
+[node name="createroom" type="Button" parent="NETWORK_UI/VBoxContainer" unique_id=987296782]
+layout_mode = 2
+text = "Host a Game"
+
+[node name="host" type="Button" parent="NETWORK_UI/VBoxContainer" unique_id=837368037]
+layout_mode = 2
+text = "Enter in an existent room"
+
+[node name="ip" type="LineEdit" parent="NETWORK_UI/VBoxContainer" unique_id=1339273886]
+layout_mode = 2
+placeholder_text = "type IP..."
+
+[node name="port" type="LineEdit" parent="NETWORK_UI/VBoxContainer" unique_id=412891853]
+layout_mode = 2
+placeholder_text = "type Port..."
+
+[node name="username" type="LineEdit" parent="NETWORK_UI/VBoxContainer" unique_id=833728532]
+layout_mode = 2
+placeholder_text = "type your username..."
+
+[node name="mapa" parent="." unique_id=996848140 instance=ExtResource("2_wgubu")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1696944361]
+anchor_mode = 0
+zoom = Vector2(1.2, 1.2)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1212863303]
+_spawnable_scenes = PackedStringArray("uid://bygnml4oiwkhb", "uid://sc7ju1cxkgjs")
+spawn_path = NodePath("..")
+spawn_limit = 2
+
+[node name="Game_UI" type="Control" parent="." unique_id=1023263435]
+z_index = 200
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="player2pont" type="Label" parent="Game_UI" unique_id=2052353784]
+layout_mode = 0
+offset_left = 1017.0
+offset_top = 38.0
+offset_right = 1107.0
+offset_bottom = 130.0
+text = "0"
+label_settings = SubResource("LabelSettings_lolwk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="player1pont" type="Label" parent="Game_UI" unique_id=31259879]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 38.0
+offset_right = 118.0
+offset_bottom = 130.0
+text = "0"
+label_settings = SubResource("LabelSettings_lolwk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Game_UI" unique_id=810872423]
+replication_config = SubResource("SceneReplicationConfig_lolwk")
+
+[connection signal="pressed" from="EndGame_UI/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="NETWORK_UI/VBoxContainer/createroom" to="." method="start_server"]
+[connection signal="pressed" from="NETWORK_UI/VBoxContainer/host" to="." method="start_client"]
+[connection signal="text_changed" from="NETWORK_UI/VBoxContainer/ip" to="." method="_on_ip_text_changed"]
+[connection signal="text_changed" from="NETWORK_UI/VBoxContainer/port" to="." method="_on_port_text_changed"]
+[connection signal="text_changed" from="NETWORK_UI/VBoxContainer/username" to="." method="_on_username_text_changed"]
+
+[editable path="mapa"]
